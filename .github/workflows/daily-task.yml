@@ -14,7 +14,12 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Remove files in zdjecia directory
-        run: rm -rf zdjecia/*
+        run: rm -rf photo/*
+
+      - name: Export secret to environment
+        env:
+          GOOGLE: ${{ secrets.GOOGLE }}
+        run: echo "Google Cloud Credentials exported."
 
       - name: Install npm dependencies
         run: npm install
