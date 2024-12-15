@@ -17,13 +17,13 @@ jobs:
       - name: Remove files in zdjecia directory
         run: rm -rf photo/*
 
-      - name: Install npm dependencies
-        run: npm install
-
       - name: Write Google JSON to file
-        run: echo "${{ secrets.GOOGLE }}" > google.json
+        run: echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT }}" > google.json
 
-      - name: Run script.js
+      - name: Display JSON file (optional, for debugging)
+        run: cat google.json
+
+      - name: Run script
         env:
-          GOOGLE_FILE: google.json
+          GOOGLE_APPLICATION_CREDENTIALS: google.json
         run: node script.js
