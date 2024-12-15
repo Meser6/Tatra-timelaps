@@ -27,6 +27,7 @@ async function uploadFile(fileName, filePath, driveDir) {
     console.log(`Plik ${fileName} został przesłany. ID pliku: ${response.data.id}`);
   } catch (error) {
     console.error('Błąd podczas przesyłania pliku:', error.message);
+    process.exit(1);
   }
 }
 
@@ -76,6 +77,7 @@ async function downloadAndUploadImage(option, date, retryCount = 3, retryDelay =
       }, retryDelay);
     } else {
       console.error(`Nie udało się pobrać obrazka ${fileName} po kilku próbach.`);
+      process.exit(1);
     }
   }
 }
