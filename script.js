@@ -5,7 +5,7 @@ const { google } = require('googleapis');
 
 
 const auth = new google.auth.GoogleAuth({
-  keyFile: GOOGLE_FILE || 'google.json',
+  keyFile: process.env.GOOGLE_FILE || 'google.json',
   scopes: 'https://www.googleapis.com/auth/drive',
 });
 async function uploadFile(fileName, filePath, driveDir) {
