@@ -21,7 +21,13 @@ jobs:
         run: npm install
 
       - name: Create google.json file
-        run: echo "${{ secrets.GOOGLE }}" 
+        run: echo "${{ secrets.GOOGLE }}" > google.json
+
+      - name: debug
+        run: ls
+
+      - name: debug
+        run: cat google.json
 
       - name: Run script.js
         run: node script.js
