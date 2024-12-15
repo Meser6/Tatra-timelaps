@@ -9,10 +9,9 @@ const urls = [
   ['piatka02', 'http://kamery.topr.pl/stawy1/stawy1.jpg'],
   ['gasienicowa', 'http://kamery.topr.pl/hala/hala.jpg'],
   ['kaspro', 'http://kamery.topr.pl/goryczkowa/gorycz.jpg'],
-  ['koscielosko', 'http://kamery.topr.pl/czwierchy/czwierchy.jpg'],
+  ['koscielisko', 'http://kamery.topr.pl/czwierchy/czwierchy.jpg'],
   ['chocholowska01', 'http://kamery.topr.pl/chocholowska/chocholow.jpg'],
   ['chocholowska02', 'http://kamery.topr.pl/chocholowska2/chochol2.JPG'],
-  ['czarnaGora', 'http://kamery.topr.pl/cg/cg.jpg'],
 ];
 
 function getFormattedDate() {
