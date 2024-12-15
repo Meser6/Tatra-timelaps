@@ -2,7 +2,7 @@ name: Daily Task
 
 on:
   schedule:
-    - cron: '56 19 * * *' # Codziennie o 12:00 UTC
+    - cron: '05 20 * * *' # Codziennie o 12:00 UTC
   workflow_dispatch:
 
 jobs:
