@@ -2,7 +2,7 @@ name: Daily Task
 
 on:
   schedule:
-    - cron: '39 20 * * *' # Codziennie o 12:00 UTC
+    - cron: '46 19 * * *' # Codziennie o 12:00 UTC
 
 jobs:
   run-script:
