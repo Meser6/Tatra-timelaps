@@ -17,6 +17,9 @@ jobs:
       - name: Remove files in zdjecia directory
         run: rm -rf photo/*
 
+      - name: Download dependencies
+        run: npm install
+
       - name: Write Google JSON to file
         run: echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT }}" > google.json
 
