@@ -20,13 +20,12 @@ jobs:
       - name: Download dependencies
         run: npm install
 
-      - name: Write Google JSON to file
-        run: echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT }}" | sed 's/\\\\n/\/g' > google.json
-
-      - name: Set GOOGLE_APPLICATION_CREDENTIALS
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: google.json
-        run: echo "Environment variable set"
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@1.1.2
+        with:
+          name: "google.json"
+          json: ${{ secrets.GOOGLE }}
 
       - name: Display JSON file (optional, for debugging)
         run: cat google.json
