@@ -20,7 +20,8 @@ jobs:
       - name: Install npm dependencies
         run: npm install
 
+      - name: Create google.json file
+        run: echo "${{ secrets.GOOGLE }}" > google.json
+
       - name: Run script.js
-        env:
-          GOOGLE: ${{ secrets.GOOGLE }}
         run: node script.js
