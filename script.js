@@ -1,5 +1,6 @@
 const axios = require('axios');
 const fs = require('fs');
+const path = require('path');
 
 const urls = [
   ['moko01', 'http://kamery.topr.pl/moko/moko_01.jpg'],
@@ -12,47 +13,46 @@ const urls = [
   ['chocholowska01', 'http://kamery.topr.pl/chocholowska/chocholow.jpg'],
   ['chocholowska02', 'http://kamery.topr.pl/chocholowska2/chochol2.JPG'],
   ['czarnaGora', 'http://kamery.topr.pl/cg/cg.jpg'],
-]
+];
+
 function getFormattedDate() {
   const today = new Date();
-  let day = today.getDate();
-  let month = today.getMonth() + 1; 
+  const day = String(today.getDate()).padStart(2, '0');
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // Miesiące są indeksowane od 0
   const year = today.getFullYear();
-
-  if (day < 10) {
-      day = '0' + day;
-  }
-  if (month < 10) {
-      month = '0' + month;
-  }
-
   return `${day}-${month}-${year}`;
 }
 
-async function downloadImage(fileName, url, date) {
-    try {
-      const filePath = `./zdjecia/${fileName}-${date}.jpg`;
+async function downloadImage(fileName, url, date, retryCount = 3, retryDelay = 1000) {
+  const filePath = path.resolve(__dirname, 'zdjecia', `${fileName}-${date}.jpg`);
 
-        const response = await axios.get(url, { responseType: 'stream' });
-        const writer = fs.createWriteStream(filePath);
+  try {
+    const response = await axios.get(url, { responseType: 'stream' });
+    const writer = fs.createWriteStream(filePath);
 
-        // Zapisz strumień odpowiedzi do pliku
-        response.data.pipe(writer);
+    response.data.pipe(writer);
 
-        writer.on('finish', () => {
-            console.log('Obrazek został zapisany do:', filePath);
-        });
+    await new Promise((resolve, reject) => {
+      writer.on('finish', resolve);
+      writer.on('error', reject);
+    });
 
-        writer.on('error', (err) => {
-            console.log('Błąd podczas zapisu obrazka:', err);
-            console.log('Proba druga:');
-            downloadImage(fileName, url, date);
-        });
-    } catch (error) {
-        console.error('Błąd podczas pobierania obrazka:', error);
+    console.log(`Obrazek został zapisany do: ${filePath}`);
+  } catch (error) {
+    console.error(`Błąd podczas pobierania obrazka ${fileName}:`, error.message);
+
+    if (retryCount > 0) {
+      console.log(`Ponawianie próby za ${retryDelay / 1000} sekund... Pozostało prób: ${retryCount}`);
+      setTimeout(() => {
+        downloadImage(fileName, url, date, retryCount - 1, retryDelay);
+      }, retryDelay);
+    } else {
+      console.error(`Nie udało się pobrać obrazka ${fileName} po kilku próbach.`);
     }
+  }
 }
 
+const date = getFormattedDate();
 urls.forEach(([fileName, url]) => {
-  downloadImage(fileName, url, getFormattedDate());
-})
+  downloadImage(fileName, url, date);
+});
