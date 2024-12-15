@@ -21,7 +21,7 @@ jobs:
         run: npm install
 
       - name: Write Google JSON to file
-        run: echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT }}" | sed 's/\\\\n/\\n/g' > google.json
+        run: echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT }}" | sed 's/\\\\n/\/g' > google.json
 
       - name: Set GOOGLE_APPLICATION_CREDENTIALS
         env:
