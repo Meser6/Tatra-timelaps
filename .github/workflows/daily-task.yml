@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Remove files in zdjecia directory
+      - name: Remove files in photo directory
         run: rm -rf photo/*
 
       - name: Download dependencies
@@ -26,9 +26,6 @@ jobs:
         with:
           name: "google.json"
           json: ${{ secrets.GOOGLE }}
-
-      - name: Display JSON file (optional, for debugging)
-        run: cat google.json
 
       - name: Run script
         env:
