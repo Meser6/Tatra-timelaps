@@ -48,7 +48,7 @@ function getFormattedDate() {
   const day = String(today.getDate()).padStart(2, '0');
   const month = String(today.getMonth() + 1).padStart(2, '0'); // Miesiące są indeksowane od 0
   const year = today.getFullYear();
-  return `${day}-${month}-${year}`;
+  return `${year}-${month}-${day}`;
 }
 
 async function downloadAndUploadImage(option, date, retryCount = 3, retryDelay = 1000) {
