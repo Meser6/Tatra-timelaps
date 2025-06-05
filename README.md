@@ -2,3 +2,4 @@ Projekt codzienine o 12 pobiera zdjecia z kamerek http://kamery.topr.pl/ i zapis
 Kiedys tam zrobie z nich timelaps.
  
 
+ 
